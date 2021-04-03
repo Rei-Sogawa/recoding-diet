@@ -1,17 +1,13 @@
 import firebase from 'firebase/app';
 import { mealRecordsRef } from '../firebaseApp';
-
-type Data = {
-  date: firebase.firestore.Timestamp;
-  content: string;
-};
+import { MealRecord } from '../models/mealRecord';
 
 const create: (payload: {
   date: Date;
   content: string;
 }) => Promise<firebase.firestore.DocumentReference> = (payload) => {
   const { date, content } = payload;
-  const data: Data = {
+  const data: MealRecord = {
     date: firebase.firestore.Timestamp.fromDate(date),
     content,
   };
