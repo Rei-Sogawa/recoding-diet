@@ -1,13 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import 'antd/dist/antd.css';
 import reportWebVitals from './reportWebVitals';
 
-import Public from './pages/public/index';
+import './firebaseApp';
+import routes from './routes';
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Public />
+    <Router>
+      <Switch>
+        {routes.map((_) => (
+          <Route
+            key={_.path}
+            exact={_.exact}
+            path={_.path}
+            children={_.component}
+          />
+        ))}
+      </Switch>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
