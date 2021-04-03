@@ -1,8 +1,26 @@
 import { Form, Input, Button, TimePicker, DatePicker } from 'antd';
+import moment, { Moment } from 'moment';
 
-export default function MealRecordForm() {
+export type Values = {
+  date: Moment;
+  time: Moment;
+  content: string;
+};
+
+export default function MealRecordForm({
+  initialValues,
+  onFinish,
+}: {
+  initialValues?: Values;
+  onFinish: (values: Values) => void;
+}) {
   return (
-    <Form onFinish={(values) => console.log(values)}>
+    <Form
+      initialValues={
+        initialValues || { date: moment(), time: moment(), content: '' }
+      }
+      onFinish={onFinish}
+    >
       <Form.Item name="date">
         <DatePicker />
       </Form.Item>

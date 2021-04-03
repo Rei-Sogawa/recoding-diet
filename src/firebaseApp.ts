@@ -14,5 +14,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
+const mealRecordsRef = db.collection('mealRecords');
 
-export { db };
+export { db, mealRecordsRef };

@@ -1,5 +1,8 @@
-import MealRecordForm from '../../components/MealRecordForm';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
+
+import MealRecordForm from '../../components/MealRecordForm';
+import { create } from '../../services/mealRecordsService';
 
 function MealRecordsNew() {
   return (
@@ -7,7 +10,17 @@ function MealRecordsNew() {
       <div style={{ fontSize: 'large', marginBottom: '16px' }}>
         食事を記録する
       </div>
-      <MealRecordForm />
+      <MealRecordForm
+        onFinish={(values) => {
+          const { date, time, content } = values;
+          return create({
+            date: moment(
+              `${date.format('YYYY-MM-DD')} ${time.format('HH:mm')}`
+            ).toDate(),
+            content,
+          });
+        }}
+      />
       <Link to="/meal-records">戻る</Link>
     </div>
   );
