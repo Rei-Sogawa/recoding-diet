@@ -1,5 +1,5 @@
-import { Link, useHistory } from 'react-router-dom';
 import moment from 'moment';
+import { Link, useHistory } from 'react-router-dom';
 
 import MealRecordForm from '../../components/MealRecordForm';
 import { create } from '../../services/mealRecordsService';
@@ -9,8 +9,10 @@ function MealRecordsNew() {
 
   return (
     <div style={{ width: '480px', margin: '0 auto', padding: '16px 0' }}>
-      <div style={{ fontSize: 'large', marginBottom: '16px' }}>
-        食事を記録する
+      <div style={{ marginBottom: '16px' }}>
+        <div style={{ fontSize: 'large', fontWeight: 'bold' }}>
+          食事を記録する
+        </div>
       </div>
       <MealRecordForm
         onFinish={async (values) => {

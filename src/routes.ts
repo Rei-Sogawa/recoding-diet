@@ -1,6 +1,6 @@
 import Index from './pages/Index';
-import MealRecordsIndex from './pages/meal-records/Index';
-import MealRecordsNew from './pages/meal-records/New';
+import MealRecordsIndex from './pages/meal-records/MealRecordsIndex';
+import MealRecordsNew from './pages/meal-records/MealRecordsNew';
 
 const routes = [
   {

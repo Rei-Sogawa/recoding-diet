@@ -1,12 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import './index.css';
 import 'antd/dist/antd.css';
-import reportWebVitals from './reportWebVitals';
-
 import './firebaseApp';
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+import reportWebVitals from './reportWebVitals';
 import routes from './routes';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>

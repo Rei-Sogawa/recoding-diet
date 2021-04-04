@@ -1,4 +1,5 @@
 import firebase from 'firebase/app';
+
 import { mealRecordsRef } from '../firebaseApp';
 import { MealRecord } from '../models/mealRecord';
 

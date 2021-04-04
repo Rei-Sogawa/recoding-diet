@@ -1,8 +1,8 @@
-import { useHistory } from 'react-router-dom';
-import { Button, List } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
+import { Button, List } from 'antd';
 import { format } from 'date-fns';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { useHistory } from 'react-router-dom';
 
 import { mealRecordsRef } from '../../firebaseApp';
 import { MealRecordWithMeta } from '../../models/mealRecord';
