@@ -1,16 +1,11 @@
 import { grey, red } from '@ant-design/colors';
-import {
-  DeleteOutlined,
-  FireOutlined,
-  LikeOutlined,
-  MoreOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
-import { Avatar, Button, List, Popover, Space } from 'antd';
+import { DeleteOutlined, MoreOutlined, UserOutlined } from '@ant-design/icons';
+import { Avatar, Button, List, Popover } from 'antd';
 import { format } from 'date-fns';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useHistory } from 'react-router-dom';
 
+import MealRecordReactions from '../../components/MealRecordReactions';
 import { mealRecordsRef } from '../../firebaseApp';
 import { MealRecordWithMeta } from '../../models/mealRecord';
 
@@ -109,20 +104,7 @@ function MealRecordsIndex({
                 </div>
               </div>
 
-              <div>
-                <Space>
-                  <Button
-                    type="text"
-                    shape="circle"
-                    icon={<LikeOutlined style={{ color: grey[3] }} />}
-                  />
-                  <Button
-                    type="text"
-                    shape="circle"
-                    icon={<FireOutlined style={{ color: grey[3] }} />}
-                  />
-                </Space>
-              </div>
+              <MealRecordReactions mealRecord={item} />
             </div>
           </List.Item>
         )}

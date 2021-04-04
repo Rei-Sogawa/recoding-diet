@@ -6,6 +6,10 @@ service cloud.firestore {
 
       match /mealRecords/{mealRecordId} {
         allow read, write: if true;
+
+        match /reactions/{currentUserId} {
+          allow read, write: if true;
+        }
       }
     }
   }
