@@ -1,5 +1,12 @@
-import { DeleteOutlined } from '@ant-design/icons';
-import { Button, List } from 'antd';
+import { grey, red } from '@ant-design/colors';
+import {
+  DeleteOutlined,
+  FireOutlined,
+  LikeOutlined,
+  MoreOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
+import { Avatar, Button, List, Popover, Space } from 'antd';
 import { format } from 'date-fns';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useHistory } from 'react-router-dom';
@@ -8,10 +15,13 @@ import { mealRecordsRef } from '../../firebaseApp';
 import { MealRecordWithMeta } from '../../models/mealRecord';
 
 function Loading() {
-  const [mealRecords] = useCollectionData<MealRecordWithMeta>(mealRecordsRef, {
-    idField: 'id',
-    refField: 'ref',
-  });
+  const [mealRecords] = useCollectionData<MealRecordWithMeta>(
+    mealRecordsRef.orderBy('date', 'desc'),
+    {
+      idField: 'id',
+      refField: 'ref',
+    }
+  );
 
   return (
     <>
@@ -31,8 +41,14 @@ function MealRecordsIndex({
 
   return (
     <div style={{ width: '480px', margin: '0 auto', padding: '16px 0' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <div style={{ fontSize: 'large' }}>食事記録</div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <div style={{ fontSize: 'large', fontWeight: 'bold' }}>食事記録</div>
         <Button type="primary" onClick={() => history.push('meal-records/new')}>
           記録する
         </Button>
@@ -40,19 +56,74 @@ function MealRecordsIndex({
       <List
         dataSource={mealRecords}
         renderItem={(item) => (
-          <List.Item
-            actions={[
-              <Button
-                shape="circle"
-                icon={<DeleteOutlined />}
-                onClick={() => item.ref.delete()}
-              />,
-            ]}
-          >
-            <List.Item.Meta
-              title={item.content.split('\n').join(' ')}
-              description={format(item.date.toDate(), 'yyyy/MM/dd HH:mm')}
-            ></List.Item.Meta>
+          <List.Item>
+            <div style={{ flex: 1 }}>
+              <div style={{ flex: 1, display: 'flex', alignItems: 'start' }}>
+                <Avatar
+                  icon={<UserOutlined />}
+                  style={{ marginRight: '12px' }}
+                />
+                <div style={{ flex: 1 }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                    }}
+                  >
+                    <div style={{ color: grey[3] }}>
+                      {format(item.date.toDate(), 'yyyy/MM/dd HH:mm')}
+                    </div>
+                    <div>
+                      <Popover
+                        trigger="click"
+                        content={
+                          <div
+                            style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              cursor: 'pointer',
+                            }}
+                            onClick={() => item.ref.delete()}
+                          >
+                            <DeleteOutlined
+                              style={{ color: red[4], marginRight: '8px' }}
+                            />
+                            <div style={{ color: red[4] }}>Delete</div>
+                          </div>
+                        }
+                      >
+                        <Button
+                          size="small"
+                          shape="circle"
+                          icon={<MoreOutlined rotate={90} />}
+                        />
+                      </Popover>
+                    </div>
+                  </div>
+                  <div>
+                    {item.content
+                      .split('\n')
+                      .filter((_) => _)
+                      .join(' ')}
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <Space>
+                  <Button
+                    type="text"
+                    shape="circle"
+                    icon={<LikeOutlined style={{ color: grey[3] }} />}
+                  />
+                  <Button
+                    type="text"
+                    shape="circle"
+                    icon={<FireOutlined style={{ color: grey[3] }} />}
+                  />
+                </Space>
+              </div>
+            </div>
           </List.Item>
         )}
       ></List>
